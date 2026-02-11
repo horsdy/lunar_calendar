@@ -1,20 +1,34 @@
-# Android Studio 配置文件
-.idea/
+# Gradle files
 .gradle/
-local.properties
-*.iml
-*.iws
-*.ipr
-
-# 编译产物
 build/
-app/build/
-outputs/
 
-# 系统缓存
-.DS_Store # macOS
-Thumbs.db # Windows
+# Local configuration file (sdk path, etc)
+local.properties
 
-# 签名密钥（重要：切勿提交密钥文件！）
+# Log/OS Files
+*.log
+
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.aab
+*.apk
+output-metadata.json
+
+# IntelliJ
+*.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Keystore files
 *.jks
 *.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof

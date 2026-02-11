@@ -1,0 +1,20 @@
+# Android Studio 配置文件
+.idea/
+.gradle/
+local.properties
+*.iml
+*.iws
+*.ipr
+
+# 编译产物
+build/
+app/build/
+outputs/
+
+# 系统缓存
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# 签名密钥（重要：切勿提交密钥文件！）
+*.jks
+*.keystore

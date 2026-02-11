@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- W-005: 背景 #539de6 透明度 0% -->
+    <solid android:color="#FF539de6" />
+    <corners android:radius="16dp" />
+</shape>

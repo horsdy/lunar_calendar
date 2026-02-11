@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Calendar Specific Colors -->
+    <color name="calendar_bg">#FFFFFF</color>
+    <color name="calendar_text_primary">#333333</color>
+    <color name="calendar_text_secondary">#999999</color>
+    <color name="calendar_today_bg">#E3F2FD</color>
+    <color name="calendar_today_text">#1976D2</color>
+    <color name="calendar_lunar_text">#666666</color>
+    <color name="calendar_grid_line">#EEEEEE</color>
+</resources>

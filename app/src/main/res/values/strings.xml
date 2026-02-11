@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">纯净日历</string>
+
+    <!-- Weekdays -->
+    <string name="sun">日</string>
+    <string name="mon">一</string>
+    <string name="tue">二</string>
+    <string name="wed">三</string>
+    <string name="thu">四</string>
+    <string name="fri">五</string>
+    <string name="sat">六</string>
+
+    <!-- Lunar Months -->
+    <string name="lunar_month_1">正月</string>
+    <string name="lunar_month_2">二月</string>
+    <string name="lunar_month_3">三月</string>
+    <string name="lunar_month_4">四月</string>
+    <string name="lunar_month_5">五月</string>
+    <string name="lunar_month_6">六月</string>
+    <string name="lunar_month_7">七月</string>
+    <string name="lunar_month_8">八月</string>
+    <string name="lunar_month_9">九月</string>
+    <string name="lunar_month_10">十月</string>
+    <string name="lunar_month_11">十一月</string>
+    <string name="lunar_month_12">腊月</string>
+
+    <!-- Lunar Specials -->
+    <string name="lunar_leap_prefix">闰</string>
+    <string name="lunar_day_chu">初</string>
+    <string name="lunar_day_shi">十</string>
+    <string name="lunar_day_nian">廿</string>
+    <string name="lunar_day_san">三十</string>
+
+    <!-- Settings (S-001) -->
+    <string name="settings_title">设置</string>
+    <string name="settings_week_start">一周的开始日</string>
+    <string name="settings_version">版本</string>
+    <string name="settings_author">作者</string>
+    <string name="settings_contact">联系方式</string>
+    <string name="option_monday">周一</string>
+    <string name="option_sunday">周日</string>
+    <string name="settings_author_value">蓝天</string>
+    <string name="settings_contact_value">houshidi@sina.com</string>
+</resources>

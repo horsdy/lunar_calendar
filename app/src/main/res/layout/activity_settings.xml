@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/calendar_bg">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_settings"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 一周的开始日 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_week_start"
+                android:textSize="16sp"
+                android:textColor="@color/calendar_text_primary"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp" />
+            <Spinner
+                android:id="@+id/spinner_week_start"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:spinnerMode="dropdown" />
+
+            <!-- 版本 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_version"
+                android:textSize="16sp"
+                android:textColor="@color/calendar_text_primary"
+                android:paddingTop="24dp"
+                android:paddingBottom="8dp" />
+            <TextView
+                android:id="@+id/tv_version_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/calendar_text_secondary"
+                tools:text="1.0" />
+
+            <!-- 作者 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_author"
+                android:textSize="16sp"
+                android:textColor="@color/calendar_text_primary"
+                android:paddingTop="24dp"
+                android:paddingBottom="8dp" />
+            <TextView
+                android:id="@+id/tv_author_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/calendar_text_secondary" />
+
+            <!-- 联系方式 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_contact"
+                android:textSize="16sp"
+                android:textColor="@color/calendar_text_primary"
+                android:paddingTop="24dp"
+                android:paddingBottom="8dp" />
+            <TextView
+                android:id="@+id/tv_contact_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/calendar_text_secondary" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

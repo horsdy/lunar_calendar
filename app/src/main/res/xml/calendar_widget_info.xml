@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- W-004: 适配 2×2、2×1、4×2，至少一种尺寸可完整显示两行 -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
+    android:updatePeriodMillis="86400000"
+    android:previewImage="@drawable/ic_launcher_background"
+    android:initialLayout="@layout/widget_calendar"
+    android:description="@string/app_name"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen" />

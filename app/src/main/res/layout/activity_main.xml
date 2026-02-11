@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/calendar_bg"
+    tools:context=".MainActivity">
+
+    <!-- Top Bar: Month Navigation & Settings -->
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_month_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/calendar_text_primary"
+            tools:text="2025年2月" />
+
+        <Button
+            android:id="@+id/btn_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="8dp"
+            android:text="今"
+            android:textSize="16sp"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@color/calendar_today_text" />
+
+        <ImageButton
+            android:id="@+id/btn_settings"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_settings_gear" />
+    </LinearLayout>
+
+    <!-- Weekday Header -->
+    <LinearLayout
+        android:id="@+id/layout_weekdays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_header">
+        <TextView android:id="@+id/tv_week_0" style="@style/CalendarWeekHeader" android:layout_weight="1" android:gravity="center" />
+        <TextView android:id="@+id/tv_week_1" style="@style/CalendarWeekHeader" android:layout_weight="1" android:gravity="center" />
+        <TextView android:id="@+id/tv_week_2" style="@style/CalendarWeekHeader" android:layout_weight="1" android:gravity="center" />
+        <TextView android:id="@+id/tv_week_3" style="@style/CalendarWeekHeader" android:layout_weight="1" android:gravity="center" />
+        <TextView android:id="@+id/tv_week_4" style="@style/CalendarWeekHeader" android:layout_weight="1" android:gravity="center" />
+        <TextView android:id="@+id/tv_week_5" style="@style/CalendarWeekHeader" android:layout_weight="1" android:gravity="center" />
+        <TextView android:id="@+id/tv_week_6" style="@style/CalendarWeekHeader" android:layout_weight="1" android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Calendar ViewPager2 for sliding effect -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layout_weekdays" />
+
+    <!-- Day Detail Section -->
+    <LinearLayout
+        android:id="@+id/layout_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="#F8F9FA"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/vp_calendar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_detail_gregorian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/calendar_text_primary"
+            tools:text="2025年2月9日" />
+
+        <TextView
+            android:id="@+id/tv_detail_lunar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:textColor="@color/calendar_lunar_text"
+            tools:text="农历 乙巳年 正月十二" />
+
+        <TextView
+            android:id="@+id/tv_detail_delta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/calendar_today_text"
+            tools:text="今天" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

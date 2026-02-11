@@ -1,0 +1,107 @@
+---
+description: Android 开发通用规范（Kotlin/Java、架构、资源、小组件等）
+globs: "**/*.kt,**/*.kts,**/build.gradle*,**/AndroidManifest.xml,**/res/**/*.xml"
+alwaysApply: false
+---
+
+# 安卓开发规范（通用）
+
+Android 项目通用开发规范，与具体业务需求文档相对独立，适用于日常编码与 Code Review。编辑 Android 相关文件时遵守以下内容。
+
+---
+
+## 1. 项目结构
+
+- 按**功能/模块**组织包（feature-first），而非按类型（如把所有 Activity 放一起）。
+- 示例：`com.app.calendar.home`、`com.app.calendar.widget`，其下再分子包 `ui`、`domain`、`data` 等。
+- 资源：`res/values` 下用 `strings.xml`、`colors.xml`、`dimens.xml` 等拆分，避免单文件过大；主题与样式集中管理。
+
+---
+
+## 2. 命名
+
+- **包名**：全小写，如 `com.company.app.feature.module`。
+- **类名**：Activity/Fragment 以 `Activity`/`Fragment` 结尾；ViewModel 以 `ViewModel` 结尾；Adapter 以 `Adapter` 结尾。
+- **布局 XML**：`activity_*`、`fragment_*`、`item_*`、`dialog_*`；控件 id：`模块_控件类型_用途`，如 `home_tv_date`。
+- **资源**：`strings` 键名小写+下划线；`colors`/`dimens` 语义化，如 `primary_text`、`spacing_small`。
+
+---
+
+## 3. Kotlin 与 Java
+
+- 新代码优先 **Kotlin**；与现有 Java 共存时保持风格一致。
+- 使用 `val` 优先于 `var`；避免可空滥用，必要时用 `requireNotNull`/`checkNotNull` 或早返回。
+- 集合优先使用标准库 `listOf`、`mapOf` 等；需要可变时显式使用 `mutableListOf` 等。
+- 协程：UI 相关用 `viewModelScope`/`lifecycleScope`，Repository 层用 `CoroutineScope` 或注入的 Scope，并明确 `Dispatcher`（如 `Dispatchers.IO`）。
+
+---
+
+## 4. 架构与分层
+
+- 推荐 **MVVM**：View（Activity/Fragment）只做 UI 与用户输入；ViewModel 暴露状态与单次事件；Repository 负责数据源抽象。
+- 单向数据流：UI → ViewModel → UseCase/Repository → 数据源；结果通过 StateFlow/LiveData 回写到 UI。
+- 避免在 Activity/Fragment 中写业务逻辑与直接访问数据库/网络，抽到 ViewModel 或 UseCase 中。
+
+---
+
+## 5. 依赖与构建
+
+- 版本统一在根 `build.gradle` 或 `libs.versions.toml` 中管理（如 `compileSdk`、`targetSdk`、依赖版本）。
+- 使用 **Build Variants** 区分 debug/release，敏感配置（如 API Key）放 `local.properties` 或 BuildConfig，不提交到仓库。
+- 依赖按模块划分：核心用 `implementation`，仅测试用 `testImplementation`/`androidTestImplementation`。
+
+---
+
+## 6. 资源与主题
+
+- 文案、尺寸、颜色进资源文件，避免硬编码；支持多语言时所有用户可见文案进 `strings.xml`。
+- 深色模式：通过 `values-night` 与主题属性适配，避免在代码里写死颜色。
+- 图片：优先 Vector Drawable；位图提供合适密度（如 `drawable-xhdpi`），并考虑压缩与尺寸。
+
+---
+
+## 7. 性能与线程
+
+- 主线程不进行耗时操作（IO、复杂计算）；使用协程、WorkManager 或线程池。
+- 列表使用 **RecyclerView** + ViewHolder，避免在 `onBindViewHolder` 里做重逻辑或创建大量对象。
+- 大图加载使用图片库（如 Coil/Glide），并配置采样、缓存与生命周期绑定。
+
+---
+
+## 8. 兼容性与版本
+
+- 使用 **AndroidX**；弃用 Support 库与已弃用 API。
+- 新 API 做 **API 级别判断**（如 `Build.VERSION.SDK_INT >= Build.VERSION_CODES.XXX`），或使用 AndroidX 的兼容 API。
+- `minSdk`/`targetSdk`/`compileSdk` 在版本目录中统一，并在文档或注释中说明支持范围。
+
+---
+
+## 9. 测试
+
+- 业务逻辑与数据转换尽量放在可单测的层（ViewModel、UseCase、Repository），单元测试覆盖核心分支。
+- UI 测试使用 Espresso 或 Compose 测试 API；必要时用 Idling Resource 或同步手段避免 flaky。
+- 敏感/环境相关配置通过依赖注入或 Test Double 替换，便于本地与 CI 运行。
+
+---
+
+## 10. 安全与权限
+
+- 权限在 **AndroidManifest** 中声明，运行时权限按需请求并在使用前检查授权结果。
+- 敏感数据不写死在代码或资源中；本地存储使用 EncryptedSharedPreferences 或等价方案。
+- 网络使用 HTTPS；证书校验不随意禁用。
+
+---
+
+## 11. 小组件（App Widget）
+
+- 布局尽量简单，避免复杂嵌套与频繁更新；用 **RemoteViews** 限制的 API 更新 UI。
+- 更新策略：定时 + 事件驱动（如日期变更、用户设置变更）；注意省电与系统限制（如 Doze）。
+- 在 Android 12+ 上注意 widget 尺寸与圆角；必要时提供多种尺寸（如 2×2、4×2）的布局。
+
+---
+
+## 12. 通用约定
+
+- 提交前运行 **Lint** 并处理必须修复的 issue；团队可配置 `lintOptions` 与 baseline。
+- 日志：Release 不输出敏感信息；使用统一 Log 工具或 Timber，便于按 tag/level 过滤。
+- 崩溃与关键路径可接入崩溃上报与关键埋点；不捕获后“吞掉”异常不处理。

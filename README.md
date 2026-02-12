@@ -15,7 +15,7 @@
 
 ## 环境与构建
 
-- **最低 / 目标**：minSdk 28，targetSdk 36（兼容 Android 13/14）。
+- **最低 / 目标**：minSdk 34，targetSdk 35（对应需求 NF-001/NF-002：目标 Android 15，兼容 Android 14）。
 - **构建**：Android Studio 打开工程，`./gradlew assembleDebug` 或 Run 安装到设备。
 
 ## 需求文档

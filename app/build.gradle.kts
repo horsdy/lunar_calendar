@@ -4,14 +4,12 @@ plugins {
 
 android {
     namespace = "com.houshidi.calendar"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.houshidi.calendar"
-        minSdk = 28
-        targetSdk = 36
+        minSdk = 34   // NF-002: 兼容 Android 14
+        targetSdk = 35 // NF-001: 目标 Android 15
         versionCode = 1
         versionName = "1.0"
 

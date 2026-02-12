@@ -3,6 +3,7 @@ package com.houshidi.calendar.feature.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -16,13 +17,31 @@ import java.util.Calendar;
 public class CalendarWidgetProvider extends AppWidgetProvider {
 
     @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        String action = intent.getAction();
+        if (action == null) return;
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
+                new ComponentName(context, CalendarWidgetProvider.class));
+        // 系统日期/时间/时区变更时刷新（根本方案：配合 Application 内运行时注册，在 Android 15 上可靠收到）
+        if (Intent.ACTION_DATE_CHANGED.equals(action)
+                || "android.intent.action.TIME_SET".equals(action)
+                || Intent.ACTION_TIMEZONE_CHANGED.equals(action)) {
+            for (int id : appWidgetIds) {
+                updateAppWidget(context, appWidgetManager, id);
+            }
+        }
+    }
+
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         Calendar cal = Calendar.getInstance();
         int month = cal.get(Calendar.MONTH) + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -31,8 +50,11 @@ public class CalendarWidgetProvider extends AppWidgetProvider {
         String weekStr = getWeekdayString(cal.get(Calendar.DAY_OF_WEEK));
         String gregorianStr = month + "月" + day + "日 " + weekStr;
 
-        // W-002: Second row 农历 月/日（如：正月十二）
-        LunarCalendarHelper.LunarDate lunar = LunarCalendarHelper.fromGregorian(cal.getTimeInMillis());
+        // W-002: Second row 农历 月/日。用当日 0 点的时间戳算农历，与公历“日期”一致，避免改日期后农历不跟变
+        Calendar dayStart = Calendar.getInstance();
+        dayStart.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        dayStart.set(Calendar.MILLISECOND, 0);
+        LunarCalendarHelper.LunarDate lunar = LunarCalendarHelper.fromGregorian(dayStart.getTimeInMillis());
         String lunarStr = formatLunarForWidget(context, lunar);
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_calendar);

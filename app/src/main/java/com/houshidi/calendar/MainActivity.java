@@ -1,5 +1,7 @@
 package com.houshidi.calendar;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.houshidi.calendar.feature.main.CalendarDayModel;
 import com.houshidi.calendar.feature.main.CalendarPagerAdapter;
 import com.houshidi.calendar.feature.main.CalendarViewModel;
 import com.houshidi.calendar.feature.settings.SettingsActivity;
+import com.houshidi.calendar.feature.widget.CalendarWidgetProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -85,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (viewModel != null) {
             viewModel.loadStartFromMondayFromPrefs();
+        }
+        refreshCalendarWidget();
+    }
+
+    /** 主界面可见时刷新小组件，保证在系统里修改日期后公历与农历能同步（广播可能被系统限制） */
+    private void refreshCalendarWidget() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(this, CalendarWidgetProvider.class));
+        for (int id : ids) {
+            CalendarWidgetProvider.updateAppWidget(this, appWidgetManager, id);
         }
     }
 

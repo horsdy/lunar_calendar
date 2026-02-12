@@ -6,7 +6,7 @@
     android:minResizeWidth="110dp"
     android:minResizeHeight="40dp"
     android:updatePeriodMillis="1800000"
-    android:previewImage="@drawable/ic_launcher_background"
+    android:previewLayout="@layout/widget_calendar_preview"
     android:initialLayout="@layout/widget_calendar"
     android:description="@string/app_name"
     android:resizeMode="horizontal|vertical"
